@@ -1,0 +1,11 @@
+name: G-ItemFilter
+version: '${project.version}'
+main: me.filipe.gitemfilter.GItemFilter
+api-version: 1.19
+description: Item Filter plugin.
+commands:
+    itemfilter:
+      usage: /<command>
+      aliases: [if]
+    filtertext:
+      usage: /<command>
