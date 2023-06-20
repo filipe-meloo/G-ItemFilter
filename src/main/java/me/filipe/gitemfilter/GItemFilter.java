@@ -8,6 +8,7 @@ import me.filipe.gitemfilter.eventos.ItemClick;
 import me.filipe.gitemfilter.eventos.PlayerJoin;
 import me.filipe.gitemfilter.eventos.PlayerPickup;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class GItemFilter extends JavaPlugin {
@@ -25,6 +26,10 @@ public final class GItemFilter extends JavaPlugin {
 
         new OpenItemFilter(this);
         new filtertext(this);
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            PlayerFilter.load(this, p);
+        }
 
         Bukkit.getConsoleSender().sendMessage("G-ItemFilter enabled!");
     }

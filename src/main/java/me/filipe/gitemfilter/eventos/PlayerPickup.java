@@ -29,11 +29,24 @@ public class PlayerPickup implements Listener {
 
         Player p = (Player) e.getEntity();
 
-        if (PlayerFilter.getEnabled(p)) {
-            Item itemP = e.getItem();
-            List<ItemStack> filter = PlayerFilter.getFilter(p);
-            if (filter.contains(itemP.getItemStack())) {
-                e.setCancelled(true);
+        if (!PlayerFilter.getEnabled(p)) {
+            return;
+        }
+
+        List<ItemStack> filter = PlayerFilter.getFilter(p);
+        Item itemP = e.getItem();
+
+        if (PlayerFilter.getReverse(p)) {
+            for (ItemStack itemF : filter) {
+                if (!itemP.getItemStack().getType().equals(itemF.getType())) {
+                    e.setCancelled(true);
+                }
+            }
+        } else {
+            for (ItemStack itemF : filter) {
+                if (itemP.getItemStack().getType().equals(itemF.getType())) {
+                    e.setCancelled(true);
+                }
             }
         }
 

@@ -20,11 +20,20 @@ public class ItemFilter implements InventoryHolder {
         Map<String, ItemStack> itens = new HashMap<>();
 
         List<String> lore = new ArrayList<>();
-        lore.clear(); lore.add(""); lore.add("&7Clica para &c&l[✗] Desativar&7."); lore.add("");
+        lore.add(""); lore.add("&7Clica para &c&l[✗] Desativar&7."); lore.add("");
         itens.put("enabled", Utils.createItem(Material.LIME_STAINED_GLASS_PANE, 1, "&a&l[✔] Ativado", lore));
 
         lore.clear(); lore.add(""); lore.add("&7Clica para &a&l[✔] Ativar&7."); lore.add("");
         itens.put("disabled", Utils.createItem(Material.RED_STAINED_GLASS_PANE, 1, "&c&l[X] Desativado", lore));
+
+        lore.clear(); lore.add(""); lore.add("&7Clica para &c&l[✗] Não Apanhar&7."); lore.add("");
+        itens.put("reverse", Utils.createItem(Material.LIME_STAINED_GLASS_PANE, 1, "&a&l[✔] Apanhar", lore));
+
+        lore.clear(); lore.add(""); lore.add("&7Clica para &a&l[✔] Apanhar&7."); lore.add("");
+        itens.put("notreverse", Utils.createItem(Material.RED_STAINED_GLASS_PANE, 1, "&c&l[X] Não Apanhar", lore));
+
+        lore.clear(); lore.add(""); lore.add("&7Clica para &cFechar."); lore.add("");
+        itens.put("close", Utils.createItem(Material.BARRIER, 1, "&c&lFechar", lore));
 
         itens.put("filler", Utils.createItem(Material.BLACK_STAINED_GLASS_PANE, 1, "", new ArrayList<String>()));
 
@@ -39,10 +48,18 @@ public class ItemFilter implements InventoryHolder {
         }
 
         if (PlayerFilter.getEnabled(p)) {
-            inv.setItem(22, getItens().get("enabled"));
+            inv.setItem(26, getItens().get("enabled"));
         } else {
-            inv.setItem(22, getItens().get("disabled"));
+            inv.setItem(26, getItens().get("disabled"));
         }
+
+        if (PlayerFilter.getReverse(p)) {
+            inv.setItem(18, getItens().get("reverse"));
+        } else {
+            inv.setItem(18, getItens().get("notreverse"));
+        }
+
+        inv.setItem(22, getItens().get("close"));
 
         List<ItemStack> filter = PlayerFilter.getFilter(p);
         if (filter != null) {
